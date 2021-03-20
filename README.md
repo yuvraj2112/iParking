@@ -1,8 +1,8 @@
 # iParking
 A repo that emulates an automated car-parking scenario. Written in Python.
 
-### What to install
-Before we can open for business, you need to install the below in your system.
+### Prerequisites
+Before we can open for business, you need to install these great pieces of software in your system. They will enable you to fetch and run the code.
 * Download the latest version of python here: https://www.python.org/downloads/
 * Download and install git here: https://git-scm.com/downloads
 
