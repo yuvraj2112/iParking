@@ -60,7 +60,7 @@ def parkNewCar(parking, car_reg, age):
         parking.info['age_to_slot'][age] = [alloc_slot]
 
     updateParkingInfo(parking)
-    print (f'Car {car_reg} parked at {alloc_slot}')
+    print (f'Car with vehicle registration number "{car_reg}" has been parked at slot number {alloc_slot}')
     return alloc_slot
 
 def leaveSlot(parking, slot):

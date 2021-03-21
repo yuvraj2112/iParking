@@ -11,6 +11,10 @@ def main():
     runCommands(commands)
 
 def runCommands(commands):
+    """
+        Takes a list of valid commands as parameter. Runs them in order.
+        Raises KeyError if invalid command is passed.
+    """
     for item in commands:
         command = item[0]
         args = item[1]
@@ -27,7 +31,7 @@ def runCommands(commands):
             park.age_to_reg(parking, *args)
         elif (command == 'Slot_number_for_car_with_number'):
             slot = park.slot4Car(parking, *args)
-            print (f'The car {args[0]} is parked at {slot}')
+            print (f'{slot}')
         else:
             raise KeyError
     return True
