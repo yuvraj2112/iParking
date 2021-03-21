@@ -72,6 +72,18 @@ class TestSum(unittest.TestCase):
         result = park.parkNewCar(parking, 'KA-01-HH-1235', 21)
         self.assertEqual(result, 2)
         result = park.parkNewCar(parking, 'KA-01-HH-1236', 21)
+        self.assertFalse(result)
+
+    def test_car_exists_scenario(self):
+        """
+        Test that it can return None when we try to park a car after parking has become full
+        """
+        parking = park.Parking(2)
+        result = park.parkNewCar(parking, 'KA-01-HH-1234', 21)
+        self.assertEqual(result, 1)
+        result = park.parkNewCar(parking, 'KA-01-HH-1235', 21)
+        self.assertEqual(result, 2)
+        result = park.parkNewCar(parking, 'KA-01-HH-1235', 21)
         self.assertIsNone(result)
 
     def test_closest_parking_scenario(self):

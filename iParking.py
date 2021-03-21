@@ -13,6 +13,7 @@ def main():
 def runCommands(commands):
     """
         Takes a list of valid commands as parameter. Runs them in order.
+        Prints the results.
         Raises KeyError if invalid command is passed.
     """
     for item in commands:
@@ -22,13 +23,23 @@ def runCommands(commands):
             parking = park.Parking(*args)
             print (f'Created parking of {args[0]} slots')
         elif (command == 'Park'):
-            park.parkNewCar(parking, *args)
+            result = park.parkNewCar(parking, *args)
+            if (result != None):
+                print (f'Car with vehicle registration number "{args[0]}" has been parked at slot number {result}')
+            else:
+                print ('Car exists') if result == None else print ('Car parking is full')
         elif (command == 'Leave'):
-            park.leaveSlot(parking, *args)
+            result = park.leaveSlot(parking, *args)
+            if (result == None):
+                print (f'Slot {slot} is already empty')
+            else:
+                print (f'Slot number {args[0]} vacated, the car with vehicle registration number "{result.registration}" left the space, the driver of the car was of age {result.driver_age}')
         elif (command == 'Slot_numbers_for_driver_of_age'):
-            park.age_to_slots(parking, *args)
+            result = park.age_to_slots(parking, *args)
+            print (','.join(list(str(slot) for slot in result))) if result != None or len(result) > 0 else print ('No slots occcupied by drivers of this age in parking')
         elif (command == 'Vehicle_registration_number_for_driver_of_age'):
-            park.age_to_reg(parking, *args)
+            result = park.age_to_reg(parking, *args)
+            print (','.join(result)) if result != None or len(result) > 0 else print ('No cars with drivers of this age in parking')
         elif (command == 'Slot_number_for_car_with_number'):
             slot = park.slot4Car(parking, *args)
             print (f'{slot}')

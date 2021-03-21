@@ -40,15 +40,12 @@ def parkNewCar(parking, car_reg, age):
     """
         Creates new car object and assigns a parking slot, if car does not already exists.
         Updates the parking information parameters.
-        Prints the result.
-        Return allocated slot on success. Otherwise, None is returned.
+        Return allocated slot on success. Otherwise, None is returned if the car exists; False, if the parking is full.
     """
-    if (parking.full):
-        print ('Car parking is full')
-        return None
     if (slot4Car(parking, car_reg)):
-        print ('Car already parked')
         return None
+    if (parking.full):
+        return False
     alloc_slot = parking.closestSlot
     parking.slots[alloc_slot] = Car(car_reg, age)
 
@@ -60,14 +57,12 @@ def parkNewCar(parking, car_reg, age):
         parking.info['age_to_slot'][age] = [alloc_slot]
 
     updateParkingInfo(parking)
-    print (f'Car with vehicle registration number "{car_reg}" has been parked at slot number {alloc_slot}')
     return alloc_slot
 
 def leaveSlot(parking, slot):
     """
         Empties a parking slot, if filled.
         Updates the parking information parameters.
-        Prints the result.
         Returns the car object on success. Otherwise, None is returned.
     """
     slot = int(slot)
@@ -79,7 +74,6 @@ def leaveSlot(parking, slot):
     del parking.info['reg_to_slot'][car.registration]
     parking.info['age_to_slot'][car.driver_age].remove(slot)
     updateParkingInfo(parking, emptied=slot)
-    print (f'Slot number {slot} vacated, the car with vehicle registration number "{car.registration}" left the space, the driver of the car was of age {car.driver_age}')
     return car
 
 def updateParkingInfo(parking, emptied=None):
@@ -101,21 +95,17 @@ def updateParkingInfo(parking, emptied=None):
 
 def age_to_reg(parking, age):
     """
-        Prints and returns information: The registration numbers of people of x age.
+        Returns information: The registration numbers of people of x age.
     """
     if (age not in parking.info['age_to_slot']):
-        print ('No cars with drivers of this age in parking')
-        return
+        return None
     slots = parking.info['age_to_slot'][age]
-    print (','.join(list(parking.slots[slot].registration for slot in slots)))
     return list(parking.slots[slot].registration for slot in slots)
 
 def age_to_slots(parking, age):
     """
-        Prints and returns information: The slot numbers of people of x age.
+        Returns information: The slot numbers of people of x age.
     """
     if (age not in parking.info['age_to_slot']):
-        print ('No slots occcupied by drivers of this age in parking')
-        return
-    print (','.join(list(str(slot) for slot in parking.info['age_to_slot'][age])))
+        return None
     return parking.info['age_to_slot'][age]
